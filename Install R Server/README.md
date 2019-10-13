@@ -26,8 +26,12 @@ Connect to the instance and launch the following command lines:
 mkdir ~/ShinyApps
 sudo /opt/shiny-server/bin/deploy-example user-dirs
 cp -R /opt/shiny-server/samples/sample-apps/hello ~/ShinyApps/
+sudo passwd username
+password
 ```
 
 Finally you can check that it works using the following:
 
 __http://*YOU_IP*:3838/ec2-user/hello/__
+
+Connect to R server http://my_ip:8787/

@@ -1,7 +1,7 @@
 # AWS_Tutorials
 ## Tutorial to install R Server and Shiny Server on AWS
 
-[Inspired from this great article  great article](https://aws.amazon.com/blogs/big-data/running-r-on-aws/)
+[Inspired from this great article](https://aws.amazon.com/blogs/big-data/running-r-on-aws/)
 
 The file *Script_User_Data.txt* contains the script needed to install **at launch** the following
 * R

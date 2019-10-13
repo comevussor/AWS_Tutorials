@@ -11,9 +11,11 @@ The file *Script_User_Data.txt* contains the script needed to install **at launc
 
 ## Launching the instance
 Choose the Amazon Linux 2018 AMI
+
 When launching an instance, use the *User Data* in *Script_User_Data.txt*.
 
 Be careful to configure the **Security Group**. Hint, RServer uses the port **8787** and Shiny Server the port **3838**.
+
 Add rule : Custom TCP for theses ports from anywhere
 
 ## User Data Output

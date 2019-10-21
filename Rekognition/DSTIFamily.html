@@ -57,7 +57,7 @@
 					console.log(data_uri);
 					
 					$http({
-        				url: "http://myURL:8080/register/",
+        				url: "http://"+myURL+":8080/register/",
 						method: "POST",
 						data: {"data":data_uri	}
     				}).then(function(response) {
@@ -83,7 +83,7 @@
 					console.log(data_uri);
 					
 					$http({
-        				url: "http://myURL:8080/",
+        				url: "http://"+myURL+":8080/",
 						method: "POST",
 						data: {"data":data_uri	}
     				}).then(function(response) {

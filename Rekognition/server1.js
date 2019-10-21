@@ -128,8 +128,7 @@ app.post('/register', (request,response) =>
              Image: {
               S3Object: {
                Bucket: bucketName, 
-               Name: keyName,
-               Credentials: creds1
+               Name: keyName
               }
              }
             };

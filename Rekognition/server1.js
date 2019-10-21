@@ -5,8 +5,8 @@ var AWS = require('aws-sdk');
 var dataUriToBuffer = require('data-uri-to-buffer');
 var bucketName = 'node-sdk-sample-marc';
 var keyName = 'hello_world.jpg';
-var leo_access_key_id = "AKIATN6SWW2UEW27PBIH";
-var leo_secret_access_key = "6qZR68sSWoABCD0yqbkiT7vBaWodxdNWhniN/huf";
+//var leo_access_key_id = "AKIATN6SWW2UEW27PBIH";
+//var leo_secret_access_key = "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";
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -75,7 +75,8 @@ app.post('/', (request,response) =>
               S3Object: 
               {
                 Bucket: bucketName, 
-                Name: keyName
+                Name: keyName,
+                Credentials: creds1
               }
             }, 
             MaxFaces: 1
@@ -124,7 +125,8 @@ app.post('/register', (request,response) =>
              Image: {
               S3Object: {
                Bucket: bucketName, 
-               Name: keyName
+               Name: keyName,
+               Credentials: creds1
               }
              }
             };

@@ -112,3 +112,13 @@ node server.js
 At this point, the server should be alive. Keep your PuTTY connection open an go to http://myPublicIP:8080 .
 You should read "LEOOO GET" on your PuTTY terminal.
 
+### Assign a role to the app server
+
+The app server is supposed to have full access to S3 and Rekognition. This has to be explicit.
+In Amazon IAM services, create a role with :
+- EC2 as AWS service that will use this role
+- Policies : AmazonS3FullAccess and AmazonRekognitionFullAccess
+- Tag : Name : EC2toS3andRekognition
+- name : EC2toS3andRekognition
+
+Go to your EC2 instance and attach the IAM role to it.

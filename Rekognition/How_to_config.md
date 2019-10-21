@@ -40,5 +40,14 @@ Launch an EC2 instance with :
 
 - don't forget to choose a key pair
 
-Open an SSH connection (I use PuTTY) and enter [the commands](https://github.com/leodsti/AWS_Tutorials/blob/master/Rekognition/Command%20Line%20Front%20End.txt)
+Open an SSH connection (I use PuTTY) and enter [the commands](Rekognition/Command%20Line%20Front%20End.txt)
+
+```
+sudo yum update -y
+sudo yum -y install httpd
+sudo service httpd start
+sudo chkconfig --add httpd
+```
+
+
 

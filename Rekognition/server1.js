@@ -46,9 +46,9 @@ app.post('/', (request,response) =>
 {
     console.log("LEOOO POST");
     //console.log(request.body.data);
-    var creds = new AWS.SharedIniFileCredentials({ profile: 'default' });
-    AWS.config.credentials = creds;
-    var s3 = new AWS.S3({region: 'eu-west-1'});
+    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    //AWS.config.credentials = creds;
+    var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     
     s3.putObject(params, function(err, data) {
@@ -56,9 +56,9 @@ app.post('/', (request,response) =>
           console.log(err)
         else
           console.log("Successfully uploaded data  "+ keyName);
-          var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });
-          AWS.config.credentials = creds;
-          var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+          var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          //AWS.config.credentials = creds;
+          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
           var params = {
             CollectionId: "myphotos", 
             FaceMatchThreshold: 95, 
@@ -90,18 +90,18 @@ app.post('/register', (request,response) =>
 {
     console.log("LEOOO POST REGISTER");
     //console.log(request.body.data);
-    var creds = new AWS.SharedIniFileCredentials({ profile: 'default' });
-    AWS.config.credentials = creds;
-    var s3 = new AWS.S3({region: 'eu-west-1'});
+    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    //AWS.config.credentials = creds;
+    var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     s3.putObject(params, function(err, data) {
         if (err)
           console.log(err)
         else
           console.log("Successfully uploaded data  "+ keyName);
-        var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });
-          AWS.config.credentials = creds;
-          var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+        var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          //AWS.config.credentials = creds;
+          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
           var params = {
              CollectionId: "myphotos", 
              DetectionAttributes: [

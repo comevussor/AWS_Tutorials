@@ -52,8 +52,8 @@ app.post('/', (request,response) =>
     var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
     AWS.config.credentials = creds1;
     
-    //var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
-    var s3 = new AWS.S3({region: 'eu-west-1'});
+    var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
+    //var s3 = new AWS.S3({region: 'eu-west-1'});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     
     s3.putObject(params, function(err, data) {
@@ -65,8 +65,8 @@ app.post('/', (request,response) =>
           var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
           AWS.config.credentials = creds2;
         
-          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
-          var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
+          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
           var params = {
             CollectionId: "myphotos", 
             FaceMatchThreshold: 95, 
@@ -102,8 +102,8 @@ app.post('/register', (request,response) =>
     var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
     AWS.config.credentials = creds1;
     
-    //var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
-    var s3 = new AWS.S3({region: 'eu-west-1'});
+    var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
+    //var s3 = new AWS.S3({region: 'eu-west-1'});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     
     s3.putObject(params, function(err, data) {
@@ -115,8 +115,8 @@ app.post('/register', (request,response) =>
           var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
           AWS.config.credentials = creds2;
         
-          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
-          var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
+          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
           var params = {
              CollectionId: "myphotos", 
              DetectionAttributes: [

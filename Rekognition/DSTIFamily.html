@@ -45,6 +45,7 @@
 	
 	<!-- Code to handle taking the snapshot and displaying it locally -->
 	<script language="JavaScript">
+		var myURL = 18.200.126.136 ;
 		var app = angular.module('myApp', []);
 		app.controller('customersCtrl', function($scope, $http) {
 			   
@@ -56,7 +57,7 @@
 					console.log(data_uri);
 					
 					$http({
-        				url: "http://localhost:8080/register/",
+        				url: "http://myURL:8080/register/",
 						method: "POST",
 						data: {"data":data_uri	}
     				}).then(function(response) {
@@ -82,7 +83,7 @@
 					console.log(data_uri);
 					
 					$http({
-        				url: "http://localhost:8080/",
+        				url: "http://myURL:8080/",
 						method: "POST",
 						data: {"data":data_uri	}
     				}).then(function(response) {

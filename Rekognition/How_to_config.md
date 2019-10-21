@@ -156,6 +156,4 @@ Trick to upload it : save it to one of your S3 buckets and import it from there 
 sudo aws s3 cp s3://myBucket/credentials.txt .aws/credentials
 ```
 
-Customize server.js file :
-At line 49 insert :
-```var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });```
+Customize server1.js file...

@@ -1,4 +1,4 @@
-# Set up a cloud based basic online face recognition app with Amazon Rekognition
+# Set up a cloud based basic online face recognition app with Amazon Rekognition (3-4 hours)
 
 The app will be able to register a set of faces and say if a candidate face is in the set or not.
 
@@ -63,7 +63,14 @@ sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Reko
 sudo mv DSTIFamily.html index.html
 ```
 
-Reload the Apache test page, it should be replaced by a WebcamJS Test Page
+Reload the Apache test page, it should be replaced by a WebcamJS Test Page. BUT recent navigators like Chrome and Firefox require https to activate the webcam. So you might not see the image. See [here](https://medium.com/@Carmichaelize/enabling-the-microphone-camera-in-chrome-for-local-unsecure-origins-9c90c3149339) a simple way to solve the issue on Chrome. Or downgrade your version.
+
+At this point the "Rekognise" and "Register" buttons should be working : each time you click on them, a snapshot should appear on the right hand side of the page.
+
+##Set up the app server
+
+
+
 
 
 

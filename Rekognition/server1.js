@@ -75,7 +75,7 @@ app.post('/', (request,response) =>
             FaceMatchThreshold: 95, 
             Image: 
             {
-                S3Object: myImage;
+                S3Object: myImage
               /*S3Object: 
               {
                 Bucket: bucketName, 

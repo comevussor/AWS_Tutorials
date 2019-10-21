@@ -5,8 +5,6 @@ var AWS = require('aws-sdk');
 var dataUriToBuffer = require('data-uri-to-buffer');
 var bucketName = 'node-sdk-sample-marc';
 var keyName = 'hello_world.jpg';
-//var leo_access_key_id = "AKIATN6SWW2UEW27PBIH";
-//var leo_secret_access_key = "6qZR68sSWoABCD0yqbkiT7vBaWodxdNWhniN/huf";
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -62,6 +60,11 @@ app.post('/', (request,response) =>
         else
           console.log("Successfully uploaded data  "+ keyName);
         
+          var myImage = new AWS.S3Object({
+                Bucket: bucketName, 
+                Name: keyName
+              });
+        
           var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
           AWS.config.credentials = creds2;
         
@@ -72,12 +75,12 @@ app.post('/', (request,response) =>
             FaceMatchThreshold: 95, 
             Image: 
             {
-              S3Object: 
+                S3Object: myImage;
+              /*S3Object: 
               {
                 Bucket: bucketName, 
-                Name: keyName,
-                Credentials: creds1
-              }
+                Name: keyName
+              }*/
             }, 
             MaxFaces: 1
            };

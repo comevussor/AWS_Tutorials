@@ -41,8 +41,9 @@ Launch an EC2 instance with :
 - don't forget to choose a key pair
 - create and assign an elastic IP to the instance
 
-Open an SSH connection (I use PuTTY) and enter [the commands](Rekognition/Command%20Line%20Front%20End.txt)
-Login as ec2-user
+Open an SSH connection (I use PuTTY).
+Login as ec2-user (default user on this AMI).
+Enter [the commands](Rekognition/Command%20Line%20Front%20End.txt)
 
 ```
 sudo yum update -y
@@ -67,14 +68,47 @@ Reload the Apache test page, it should be replaced by a WebcamJS Test Page. BUT 
 
 At this point the "Rekognise" and "Register" buttons should be working : each time you click on them, a snapshot should appear on the right hand side of the page.
 
-##Set up the app server
+## Set up the app server
 
+Launch an EC2 instance with :
+- Amazon Linux 2 AMI
+- t2.micro type
+- located in a public subnet
+- disable auto-assign public IP
+- 8GiB SSD
+- tag : Name : app server
+- Security group name : web server
 
+|Type|Protocol|Port Range|Source|Description|
+|:-:|:-:|:-:|:-:|:-:|
+|SSH|TCP|22|0.0.0.0/0|allow SSH connection|
+|All ICMP - IPv4|ICMP|0-65535|0.0.0.0/0|allow ping|
+|Custom TCP Rule|TCP|8080|0.0.0.0/0|allow dialog with web server|
 
+- don't forget to choose a key pair
+- create and assign an elastic IP to the instance
 
+Open an SSH connection (I use PuTTY).
+Login as ec2-user (default user on this AMI).
+Enter the commands :
 
+```
+sudo yum update -y
+curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+sudo yum -y install nodejs
+npm install
+npm install aws-sdk
+npm install body-parser
+npm install data-uri-to-buffer
+npm install express
+```
 
+Import the [server.js](Rekognition/server.js) file :
+```
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/server.js
+node server.js
+```
 
-
-
+At this point, the server should be alive. Keep your PuTTY connection open an go to http://myPublicIP:8080 .
+You should read "LEOOO GET" on your PuTTY terminal.
 

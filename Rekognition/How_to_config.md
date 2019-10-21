@@ -39,15 +39,24 @@ Launch an EC2 instance with :
 |HTTP|TCP|80|0.0.0.0/0|allow http|
 
 - don't forget to choose a key pair
+- create and assign an elastic IP to the instance
 
 Open an SSH connection (I use PuTTY) and enter [the commands](Rekognition/Command%20Line%20Front%20End.txt)
+Login as ec2-user
 
 ```
 sudo yum update -y
 sudo yum -y install httpd
 sudo service httpd start
-sudo chkconfig --add httpd
 ```
+
+Check that server is online on your browser with http://myPublicIP . You should see the default Apache test page.
+
+### Configure the front end web page using [this file](Rekognition/DSTIFamily.html)
+
+
+
+
 
 
 

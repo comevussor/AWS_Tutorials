@@ -1,9 +1,11 @@
 #Script for the server
 sudo yum update -y
 curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-
 sudo yum -y install nodejs
-
-npm install #Check the pasckage.json and install dependencies
-
+npm install
+npm install aws-sdk
+npm install body-parser
+npm install data-uri-to-buffer
+npm install express
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/server.js
 node server.js 

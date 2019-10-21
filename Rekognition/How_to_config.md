@@ -52,7 +52,18 @@ sudo service httpd start
 
 Check that server is online on your browser with http://myPublicIP . You should see the default Apache test page.
 
-### Configure the front end web page using [this file](Rekognition/DSTIFamily.html)
+### Configure the front end web page using [this html file](Rekognition/DSTIFamily.html) and [this .min.js file](Rekognition/webcam.min.js)
+
+Let us say you want to import them from GitHub (easy way). Be careful, on Apache install, the current user has no rights on the default html directory... so you must use sudo commands. And remember that default page should be named index.html.
+
+```
+cd /var/www/html directory
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/webcam.min.js
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/DSTIFamily.html
+sudo mv DSTIFamily.html index.html
+```
+
+Reload the Apache test page, it should be replaced by a WebcamJS Test Page
 
 
 

@@ -46,7 +46,8 @@ app.post('/', (request,response) =>
 {
     console.log("LEOOO POST");
     //console.log(request.body.data);
-
+    var creds = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    AWS.config.credentials = creds;
     var s3 = new AWS.S3({region: 'eu-west-1'});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     
@@ -55,6 +56,8 @@ app.post('/', (request,response) =>
           console.log(err)
         else
           console.log("Successfully uploaded data  "+ keyName);
+          var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          AWS.config.credentials = creds;
           var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
           var params = {
             CollectionId: "myphotos", 
@@ -87,7 +90,8 @@ app.post('/register', (request,response) =>
 {
     console.log("LEOOO POST REGISTER");
     //console.log(request.body.data);
-    
+    var creds = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    AWS.config.credentials = creds;
     var s3 = new AWS.S3({region: 'eu-west-1'});
     var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     s3.putObject(params, function(err, data) {
@@ -95,6 +99,8 @@ app.post('/register', (request,response) =>
           console.log(err)
         else
           console.log("Successfully uploaded data  "+ keyName);
+        var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          AWS.config.credentials = creds;
           var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
           var params = {
              CollectionId: "myphotos", 

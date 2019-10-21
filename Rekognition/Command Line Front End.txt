@@ -1,9 +1,10 @@
 sudo yum update -y
 sudo yum -y install httpd
 sudo service httpd start
-
-sudo chkconfig --add httpd
-
+cd /var/www/html directory
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/webcam.min.js
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/DSTIFamily.html
+sudo mv DSTIFamily.html index.html
 
 
 

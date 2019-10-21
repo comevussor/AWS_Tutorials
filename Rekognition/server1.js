@@ -59,31 +59,27 @@ app.post('/', (request,response) =>
           console.log(err)
         else
           console.log("Successfully uploaded data  "+ keyName);
-        
-          var myImage = s3.getObject({
-                Bucket: bucketName, 
-                Name: keyName
-              });
-        
-          var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
-          AWS.config.credentials = creds2;
-        
-          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
-          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+          
           var params = {
             CollectionId: "myphotos", 
             FaceMatchThreshold: 95, 
             Image: 
             {
-                S3Object: myImage
-              /*S3Object: 
+                S3Object: 
               {
                 Bucket: bucketName, 
                 Name: keyName
-              }*/
+              }
             }, 
             MaxFaces: 1
            };
+        
+          var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          AWS.config.credentials = creds2;
+        
+           var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
+          //var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
+        
            rekognition.searchFacesByImage(params, function(err, data) {
              if (err) {
                console.log(err, err.stack); // an error occurred

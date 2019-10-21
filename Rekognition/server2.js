@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var AWS = require('aws-sdk');
 var dataUriToBuffer = require('data-uri-to-buffer');
-var bucketName = 'node-sdk-sample-marc';
+var bucketName = 'node-sdk-sample-leosouquet';
 var keyName = 'hello_world.jpg';
 
 app.use(bodyParser.json()); // support json encoded bodies
@@ -47,7 +47,7 @@ app.post('/', (request,response) =>
     console.log("LEOOO POST");
     //console.log(request.body.data);
     
-    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
     AWS.config.credentials = creds1;
     
     var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});
@@ -99,7 +99,7 @@ app.post('/register', (request,response) =>
     console.log("LEOOO POST REGISTER");
     //console.log(request.body.data);
     
-    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    var creds1 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
     AWS.config.credentials = creds1;
     
     var s3 = new AWS.S3({region: 'eu-west-1'}, {credentials: creds1});

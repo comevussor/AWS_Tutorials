@@ -53,21 +53,6 @@ sudo service httpd start
 
 Check that server is online on your browser with http://myPublicIP . You should see the default Apache test page.
 
-### Configure the front end web page using [this html file](Rekognition/DSTIFamily.html) and [this .min.js file](Rekognition/webcam.min.js)
-
-Let us say you want to import them from GitHub (easy way). Be careful, on Apache install, the current user has no rights on the default html directory... so you must use sudo commands. And remember that default page should be named index.html.
-
-```
-cd /var/www/html directory
-sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/webcam.min.js
-sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/DSTIFamily.html
-sudo mv DSTIFamily.html index.html
-```
-
-Reload the Apache test page, it should be replaced by a WebcamJS Test Page. BUT recent navigators like Chrome and Firefox require https to activate the webcam. So you might not see the image. See [here](https://medium.com/@Carmichaelize/enabling-the-microphone-camera-in-chrome-for-local-unsecure-origins-9c90c3149339) a simple way to solve the issue on Chrome. Or downgrade your version.
-
-At this point the "Rekognise" and "Register" buttons should be working : each time you click on them, a snapshot should appear on the right hand side of the page.
-
 ## Set up the app server
 
 Launch an EC2 instance with :
@@ -110,7 +95,7 @@ node server.js
 ```
 
 At this point, the server should be alive. Keep your PuTTY connection open an go to http://myPublicIP:8080 .
-You should read "LEOOO GET" on your PuTTY terminal.
+You should read "LEOOO GET" on your PuTTY terminal connected to the server and you should read "it works" in your browser.
 
 ### Assign a role to the app server
 
@@ -122,3 +107,55 @@ In Amazon IAM services, create a role with :
 - name : EC2toS3andRekognition
 
 Go to your EC2 instance and attach the IAM role to it.
+
+## Configure the front end web page (on the web server) using [this html file](Rekognition/DSTIFamily.html) and [this .min.js file](Rekognition/webcam.min.js)
+
+You first need to customize the file DSTIFamily.html. Easy way is to fork it in your GitHub account.
+At line 48, replace the current public IP by your app server public IP.
+
+Let us say you want to import them from GitHub (easy way). Be careful, on Apache install, the current user has no rights on the default html directory... so you must use sudo commands. And remember that default page should be named index.html.
+
+I'm using below my own URLs but you should do it with the customized html file.
+
+```
+cd /var/www/html directory
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/webcam.min.js
+sudo wget https://raw.githubusercontent.com/comevussor/AWS_Tutorials/master/Rekognition/DSTIFamily.html
+sudo mv DSTIFamily.html index.html
+```
+
+Reload the Apache test page, it should be replaced by a WebcamJS Test Page. BUT recent navigators like Chrome and Firefox require https to activate the webcam. So you might not see the image. See [here](https://medium.com/@Carmichaelize/enabling-the-microphone-camera-in-chrome-for-local-unsecure-origins-9c90c3149339) a simple way to solve the issue on Chrome. Or downgrade your version.
+
+At this point the "Rekognise" and "Register" buttons should be working : each time you click on them, a snapshot should appear on the right hand side of the page. And on your app server terminal, you should get the results.
+
+## Option : use different AWS accounts for your servers, for S3 and for Rekognition.
+
+While doing this, I got this issue that my AWS account was limited (it was a "student" account) and I had no access to Rekognition. So I used Leo Souquets (my teacher) credentials for Rekognition.
+Credentials are a set of 2 keys : an access key ID and a secret key. You can get it in IAM service, Users menu, Security credentials tab.
+By default AWS tries to access S3 and Rekognition from EC2 with your own credentials but you can adjust that.
+
+First, you must create a credentials file with different credentials in your app server.
+File path must be ```/.aws/credentials``` (no extension).
+Content must be of the type :
+
+```
+[default]
+aws_access_key_id = ...
+aws_secret_access_key = ...
+
+[user1]
+aws_access_key_id = ...
+aws_secret_access_key = ...
+
+...
+```
+
+Trick to upload it : save it to one of your S3 buckets and import it from there (remember that your EC2 instance is allowed to do so). You can use aws cli (from ```home/ec2-user```) :
+
+```
+sudo aws s3 cp s3://myBucket/credentials.txt .aws/credentials
+```
+
+Customize server.js file :
+At line 49 insert :
+```var creds = new AWS.SharedIniFileCredentials({ profile: 'user1' });```

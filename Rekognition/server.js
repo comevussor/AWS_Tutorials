@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var app = express();
 var AWS = require('aws-sdk');
 var dataUriToBuffer = require('data-uri-to-buffer');
+var bucketName = 'node-sdk-sample-marc';
+var keyName = 'hello_world.jpg';
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -37,7 +39,7 @@ var params = {
 app.get('/', (request,response) => 
 {
     console.log("LEOOO GET");
-
+    response.send("it works");
 });
 
 app.post('/', (request,response) => 
@@ -46,11 +48,9 @@ app.post('/', (request,response) =>
     //console.log(request.body.data);
 
     var s3 = new AWS.S3({region: 'eu-west-1'});
-    //var bucketName = 'node-sdk-sample-leoSOUQUET';
-    var keyName = 'hello_world.jpg';
+    var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     
-      var params = {Bucket: "node-sdk-sample-leosouquet", Key: keyName, Body: dataUriToBuffer(request.body.data)};
-      s3.putObject(params, function(err, data) {
+    s3.putObject(params, function(err, data) {
         if (err)
           console.log(err)
         else
@@ -63,8 +63,8 @@ app.post('/', (request,response) =>
             {
               S3Object: 
               {
-                Bucket: "node-sdk-sample-leosouquet", 
-                Name: "hello_world.jpg"
+                Bucket: bucketName, 
+                Name: keyName
               }
             }, 
             MaxFaces: 1
@@ -87,13 +87,9 @@ app.post('/register', (request,response) =>
 {
     console.log("LEOOO POST REGISTER");
     //console.log(request.body.data);
-
     
-    //var bucketName = 'node-sdk-sample-leoSOUQUET';
-    var keyName = 'hello_world.jpg';
-
     var s3 = new AWS.S3({region: 'eu-west-1'});
-    var params = {Bucket: "node-sdk-sample-leosouquet", Key: keyName, Body: dataUriToBuffer(request.body.data)};
+    var params = {Bucket: bucketName, Key: keyName, Body: dataUriToBuffer(request.body.data)};
     s3.putObject(params, function(err, data) {
         if (err)
           console.log(err)
@@ -106,8 +102,8 @@ app.post('/register', (request,response) =>
              ], 
              Image: {
               S3Object: {
-               Bucket: "node-sdk-sample-leosouquet", 
-               Name: "hello_world.jpg"
+               Bucket: bucketName, 
+               Name: keyName
               }
              }
             };

@@ -60,7 +60,7 @@ app.post('/', (request,response) =>
         else
           console.log("Successfully uploaded data  "+ keyName);
         
-          var myImage = new AWS.S3Object({
+          var myImage = s3.getObject({
                 Bucket: bucketName, 
                 Name: keyName
               });

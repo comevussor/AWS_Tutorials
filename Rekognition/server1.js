@@ -60,8 +60,9 @@ app.post('/', (request,response) =>
         else
           console.log("Successfully uploaded data  "+ keyName);
           var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          console.log(creds2);
           //AWS.config.credentials = creds2;
-        var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
+          var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
           //var rekognition = new AWS.Rekognition({region: 'eu-west-1'});
           var params = {
             CollectionId: "myphotos", 
@@ -108,6 +109,7 @@ app.post('/register', (request,response) =>
           console.log("Successfully uploaded data  "+ keyName);
         
           var creds2 = new AWS.SharedIniFileCredentials({ profile: 'user1' });
+          console.log(creds2);
           //AWS.config.credentials = creds2;
           var rekognition = new AWS.Rekognition({region: 'eu-west-1'}, {credentials: creds2});
         
